@@ -1,4 +1,4 @@
-package com.donkingliang.groupedadapter.structure;
+package com.donkingliang.groupedadapterdemo.groupedadapter.structure;
 
 /**
  * 这个类是用来记录分组列表中组的结构的。
@@ -13,7 +13,7 @@ public class GroupStructure {
 
     public GroupStructure(boolean hasHeader, boolean hasFooter, int childrenCount) {
         this.hasHeader = hasHeader;
-        this.hasFooter = hasFooter;
+//        this.hasFooter = hasFooter;
         this.childrenCount = childrenCount;
     }
 

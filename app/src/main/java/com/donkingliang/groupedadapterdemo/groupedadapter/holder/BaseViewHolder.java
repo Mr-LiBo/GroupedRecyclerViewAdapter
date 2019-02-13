@@ -1,4 +1,4 @@
-package com.donkingliang.groupedadapter.holder;
+package com.donkingliang.groupedadapterdemo.groupedadapter.holder;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;

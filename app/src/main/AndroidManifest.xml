@@ -8,22 +8,13 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".activity.Grid1Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.StickyActivity" />
-        <activity android:name=".activity.GroupedListActivity" />
-        <activity android:name=".activity.NoHeaderActivity" />
-        <activity android:name=".activity.NoFooterActivity" />
-        <activity android:name=".activity.Grid1Activity" />
-        <activity android:name=".activity.Grid2Activity" />
-        <activity android:name=".activity.ExpandableActivity" />
-        <activity android:name=".activity.VariousActivity" />
-        <activity android:name=".activity.VariousChildActivity" />
-        <activity android:name=".activity.BindingActivity" />
+
     </application>
 
 </manifest>

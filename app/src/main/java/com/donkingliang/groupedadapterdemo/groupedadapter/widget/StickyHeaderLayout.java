@@ -1,4 +1,4 @@
-package com.donkingliang.groupedadapter.widget;
+package com.donkingliang.groupedadapterdemo.groupedadapter.widget;
 
 import android.content.Context;
 import android.support.annotation.AttrRes;
@@ -14,8 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
-import com.donkingliang.groupedadapter.adapter.GroupedRecyclerViewAdapter;
-import com.donkingliang.groupedadapter.holder.BaseViewHolder;
+import com.donkingliang.groupedadapterdemo.groupedadapter.adapter.GroupedRecyclerViewAdapter;
+import com.donkingliang.groupedadapterdemo.groupedadapter.holder.BaseViewHolder;
 
 import java.lang.reflect.Method;
 
@@ -100,8 +100,8 @@ public class StickyHeaderLayout extends FrameLayout {
      */
     private void addStickyLayout() {
         mStickyLayout = new FrameLayout(mContext);
-        LayoutParams lp = new LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
-                FrameLayout.LayoutParams.WRAP_CONTENT);
+        LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT,
+                LayoutParams.WRAP_CONTENT);
         mStickyLayout.setLayoutParams(lp);
         super.addView(mStickyLayout, 1, lp);
     }

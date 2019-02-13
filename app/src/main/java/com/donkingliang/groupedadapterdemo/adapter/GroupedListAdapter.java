@@ -3,10 +3,10 @@ package com.donkingliang.groupedadapterdemo.adapter;
 import android.content.Context;
 
 import com.donkingliang.groupedadapterdemo.R;
-import com.donkingliang.groupedadapter.adapter.GroupedRecyclerViewAdapter;
 import com.donkingliang.groupedadapterdemo.entity.ChildEntity;
 import com.donkingliang.groupedadapterdemo.entity.GroupEntity;
-import com.donkingliang.groupedadapter.holder.BaseViewHolder;
+import com.donkingliang.groupedadapterdemo.groupedadapter.adapter.GroupedRecyclerViewAdapter;
+import com.donkingliang.groupedadapterdemo.groupedadapter.holder.BaseViewHolder;
 
 import java.util.ArrayList;
 
@@ -40,7 +40,7 @@ public class GroupedListAdapter extends GroupedRecyclerViewAdapter {
 
     @Override
     public boolean hasFooter(int groupPosition) {
-        return true;
+        return false;
     }
 
     @Override
@@ -66,8 +66,8 @@ public class GroupedListAdapter extends GroupedRecyclerViewAdapter {
 
     @Override
     public void onBindFooterViewHolder(BaseViewHolder holder, int groupPosition) {
-        GroupEntity entity = mGroups.get(groupPosition);
-        holder.setText(R.id.tv_footer, entity.getFooter());
+//        GroupEntity entity = mGroups.get(groupPosition);
+//        holder.setText(R.id.tv_footer, entity.getFooter());
     }
 
     @Override

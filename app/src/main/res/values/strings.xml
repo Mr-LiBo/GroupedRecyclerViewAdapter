@@ -12,4 +12,9 @@
     <string name="various_child">多种子项类型的列表</string>
     <string name="binding_adapter">使用DataBinding的列表</string>
 
+
+    <item name="type_header" type="integer"/>
+    <item name="type_footer" type="integer"/>
+    <item name="type_child" type="integer"/>
+
 </resources>
