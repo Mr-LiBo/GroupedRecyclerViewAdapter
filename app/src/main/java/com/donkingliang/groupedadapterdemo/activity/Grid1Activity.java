@@ -11,9 +11,9 @@ import android.widget.Toast;
 
 import com.donkingliang.groupedadapterdemo.R;
 import com.donkingliang.groupedadapterdemo.adapter.GroupedListAdapter;
-import com.donkingliang.groupedadapter.adapter.GroupedRecyclerViewAdapter;
-import com.donkingliang.groupedadapter.holder.BaseViewHolder;
-import com.donkingliang.groupedadapter.layoutmanger.GroupedGridLayoutManager;
+import com.donkingliang.groupedadapterdemo.groupedadapter.adapter.GroupedRecyclerViewAdapter;
+import com.donkingliang.groupedadapterdemo.groupedadapter.holder.BaseViewHolder;
+import com.donkingliang.groupedadapterdemo.groupedadapter.layoutmanger.GroupedGridLayoutManager;
 import com.donkingliang.groupedadapterdemo.model.GroupModel;
 
 
@@ -36,7 +36,7 @@ public class Grid1Activity extends AppCompatActivity {
 
         tvTitle.setText(R.string.grid_children_1);
 
-        GroupedListAdapter adapter = new GroupedListAdapter(this, GroupModel.getGroups(10, 10));
+        GroupedListAdapter adapter = new GroupedListAdapter(this, GroupModel.getGroups(10, 5));
         adapter.setOnHeaderClickListener(new GroupedRecyclerViewAdapter.OnHeaderClickListener() {
             @Override
             public void onHeaderClick(GroupedRecyclerViewAdapter adapter, BaseViewHolder holder, int groupPosition) {
@@ -64,13 +64,10 @@ public class Grid1Activity extends AppCompatActivity {
 
 
         //直接使用GroupedGridLayoutManager实现子项的Grid效果
-        GroupedGridLayoutManager gridLayoutManager = new GroupedGridLayoutManager(this, 2, adapter);
+        GroupedGridLayoutManager gridLayoutManager = new GroupedGridLayoutManager(this, 3, adapter);
         rvList.setLayoutManager(gridLayoutManager);
 
     }
 
-    public static void openActivity(Context context) {
-        Intent intent = new Intent(context, Grid1Activity.class);
-        context.startActivity(intent);
-    }
+
 }
