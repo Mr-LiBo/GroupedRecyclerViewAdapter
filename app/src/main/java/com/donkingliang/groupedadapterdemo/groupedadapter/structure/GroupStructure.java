@@ -8,12 +8,12 @@ package com.donkingliang.groupedadapterdemo.groupedadapter.structure;
 public class GroupStructure {
 
     private boolean hasHeader;
-    private boolean hasFooter;
+
     private int childrenCount;
 
-    public GroupStructure(boolean hasHeader, boolean hasFooter, int childrenCount) {
+    public GroupStructure(boolean hasHeader, int childrenCount) {
         this.hasHeader = hasHeader;
-//        this.hasFooter = hasFooter;
+
         this.childrenCount = childrenCount;
     }
 
@@ -25,13 +25,6 @@ public class GroupStructure {
         this.hasHeader = hasHeader;
     }
 
-    public boolean hasFooter() {
-        return hasFooter;
-    }
-
-    public void setHasFooter(boolean hasFooter) {
-        this.hasFooter = hasFooter;
-    }
 
     public int getChildrenCount() {
         return childrenCount;

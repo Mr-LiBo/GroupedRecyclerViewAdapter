@@ -38,20 +38,14 @@ public class GroupedListAdapter extends GroupedRecyclerViewAdapter {
         return true;
     }
 
-    @Override
-    public boolean hasFooter(int groupPosition) {
-        return false;
-    }
+
 
     @Override
     public int getHeaderLayout(int viewType) {
         return R.layout.adapter_header;
     }
 
-    @Override
-    public int getFooterLayout(int viewType) {
-        return R.layout.adapter_footer;
-    }
+
 
     @Override
     public int getChildLayout(int viewType) {
@@ -64,11 +58,7 @@ public class GroupedListAdapter extends GroupedRecyclerViewAdapter {
         holder.setText(R.id.tv_header, entity.getHeader());
     }
 
-    @Override
-    public void onBindFooterViewHolder(BaseViewHolder holder, int groupPosition) {
-//        GroupEntity entity = mGroups.get(groupPosition);
-//        holder.setText(R.id.tv_footer, entity.getFooter());
-    }
+
 
     @Override
     public void onBindChildViewHolder(BaseViewHolder holder, int groupPosition, int childPosition) {

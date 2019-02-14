@@ -44,13 +44,7 @@ public class Grid1Activity extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
             }
         });
-        adapter.setOnFooterClickListener(new GroupedRecyclerViewAdapter.OnFooterClickListener() {
-            @Override
-            public void onFooterClick(GroupedRecyclerViewAdapter adapter, BaseViewHolder holder, int groupPosition) {
-                Toast.makeText(Grid1Activity.this, "组尾：groupPosition = " + groupPosition,
-                        Toast.LENGTH_LONG).show();
-            }
-        });
+
         adapter.setOnChildClickListener(new GroupedRecyclerViewAdapter.OnChildClickListener() {
             @Override
             public void onChildClick(GroupedRecyclerViewAdapter adapter, BaseViewHolder holder,

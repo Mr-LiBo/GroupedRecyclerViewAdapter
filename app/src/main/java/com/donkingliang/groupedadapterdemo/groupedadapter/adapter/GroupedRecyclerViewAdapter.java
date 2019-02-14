@@ -25,11 +25,11 @@ public abstract class GroupedRecyclerViewAdapter
         extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public static final int TYPE_HEADER = R.integer.type_header;
-    public static final int TYPE_FOOTER = R.integer.type_footer;
+
     public static final int TYPE_CHILD = R.integer.type_child;
 
     private OnHeaderClickListener mOnHeaderClickListener;
-    private OnFooterClickListener mOnFooterClickListener;
+
     private OnChildClickListener mOnChildClickListener;
 
     protected Context mContext;
@@ -76,7 +76,7 @@ public abstract class GroupedRecyclerViewAdapter
     }
 
     private void handleLayoutIfStaggeredGridLayout(RecyclerView.ViewHolder holder, int position) {
-        if (judgeType(position) == TYPE_HEADER || judgeType(position) == TYPE_FOOTER) {
+        if (judgeType(position) == TYPE_HEADER ) {
             StaggeredGridLayoutManager.LayoutParams p = (StaggeredGridLayoutManager.LayoutParams)
                     holder.itemView.getLayoutParams();
             p.setFullSpan(true);
@@ -113,19 +113,7 @@ public abstract class GroupedRecyclerViewAdapter
                 });
             }
             onBindHeaderViewHolder((BaseViewHolder) holder, groupPosition);
-        } else if (type == TYPE_FOOTER) {
-            if (mOnFooterClickListener != null) {
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (mOnFooterClickListener != null) {
-                            mOnFooterClickListener.onFooterClick(GroupedRecyclerViewAdapter.this,
-                                    (BaseViewHolder) holder, groupPosition);
-                        }
-                    }
-                });
-            }
-            onBindFooterViewHolder((BaseViewHolder) holder, groupPosition);
+
         } else if (type == TYPE_CHILD) {
             final int childPosition = getChildPositionForPosition(groupPosition, position);
             if (mOnChildClickListener != null) {
@@ -158,8 +146,6 @@ public abstract class GroupedRecyclerViewAdapter
         int type = judgeType(position);
         if (type == TYPE_HEADER) {
             return getHeaderViewType(groupPosition);
-        } else if (type == TYPE_FOOTER) {
-            return getFooterViewType(groupPosition);
         } else if (type == TYPE_CHILD) {
             int childPosition = getChildPositionForPosition(groupPosition, position);
             return getChildViewType(groupPosition, childPosition);
@@ -171,9 +157,7 @@ public abstract class GroupedRecyclerViewAdapter
         return TYPE_HEADER;
     }
 
-    public int getFooterViewType(int groupPosition) {
-        return TYPE_FOOTER;
-    }
+
 
     public int getChildViewType(int groupPosition, int childPosition) {
         return TYPE_CHILD;
@@ -183,8 +167,7 @@ public abstract class GroupedRecyclerViewAdapter
         int type = judgeType(position);
         if (type == TYPE_HEADER) {
             return getHeaderLayout(viewType);
-        } else if (type == TYPE_FOOTER) {
-            return getFooterLayout(viewType);
+
         } else if (type == TYPE_CHILD) {
             return getChildLayout(viewType);
         }
@@ -219,12 +202,7 @@ public abstract class GroupedRecyclerViewAdapter
                 return TYPE_CHILD;
             }
 
-            if (structure.hasFooter()) {
-                itemCount += 1;
-                if (position < itemCount) {
-                    return TYPE_FOOTER;
-                }
-            }
+
         }
 
         throw new IndexOutOfBoundsException("can't determine the item type of the position." +
@@ -238,7 +216,7 @@ public abstract class GroupedRecyclerViewAdapter
         mStructures.clear();
         int groupCount = getGroupCount();
         for (int i = 0; i < groupCount; i++) {
-            mStructures.add(new GroupStructure(hasHeader(i), hasFooter(i), getChildrenCount(i)));
+            mStructures.add(new GroupStructure(hasHeader(i), getChildrenCount(i)));
         }
         isDataChanged = false;
     }
@@ -272,8 +250,7 @@ public abstract class GroupedRecyclerViewAdapter
         if (groupPosition >= 0 && groupPosition < mStructures.size()) {
             int itemCount = countGroupRangeItem(0, groupPosition + 1);
             GroupStructure structure = mStructures.get(groupPosition);
-            int p = structure.getChildrenCount() - (itemCount - position)
-                    + (structure.hasFooter() ? 1 : 0);
+            int p = structure.getChildrenCount() - (itemCount - position);
             if (p >= 0) {
                 return p;
             }
@@ -307,9 +284,7 @@ public abstract class GroupedRecyclerViewAdapter
     public int getPositionForGroupFooter(int groupPosition) {
         if (groupPosition >= 0 && groupPosition < mStructures.size()) {
             GroupStructure structure = mStructures.get(groupPosition);
-            if (!structure.hasFooter()) {
-                return -1;
-            }
+
             return countGroupRangeItem(0, groupPosition + 1) - 1;
         }
         return -1;
@@ -347,9 +322,7 @@ public abstract class GroupedRecyclerViewAdapter
                 itemCount += 1;
             }
             itemCount += structure.getChildrenCount();
-            if (structure.hasFooter()) {
-                itemCount += 1;
-            }
+
         }
         return itemCount;
     }
@@ -677,7 +650,7 @@ public abstract class GroupedRecyclerViewAdapter
             GroupStructure structure = mStructures.get(groupPosition);
             notifyItemRemoved(index);
             notifyItemRangeChanged(index, getItemCount() - index);
-            structure.setHasFooter(false);
+
         }
     }
 
@@ -790,8 +763,7 @@ public abstract class GroupedRecyclerViewAdapter
      * @param groupPosition
      */
     public void notifyGroupInserted(int groupPosition) {
-        GroupStructure structure = new GroupStructure(hasHeader(groupPosition),
-                hasFooter(groupPosition), getChildrenCount(groupPosition));
+        GroupStructure structure = new GroupStructure(hasHeader(groupPosition), getChildrenCount(groupPosition));
         if (groupPosition < mStructures.size()) {
             mStructures.add(groupPosition, structure);
         } else {
@@ -827,8 +799,7 @@ public abstract class GroupedRecyclerViewAdapter
     public void notifyGroupRangeInserted(int groupPosition, int count) {
         ArrayList<GroupStructure> list = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            GroupStructure structure = new GroupStructure(hasHeader(i),
-                    hasFooter(i), getChildrenCount(i));
+            GroupStructure structure = new GroupStructure(hasHeader(i),  getChildrenCount(i));
             list.add(structure);
         }
 
@@ -890,7 +861,7 @@ public abstract class GroupedRecyclerViewAdapter
     public void notifyFooterInserted(int groupPosition) {
         if (groupPosition < mStructures.size() && 0 > getPositionForGroupFooter(groupPosition)) {
             GroupStructure structure = mStructures.get(groupPosition);
-            structure.setHasFooter(true);
+
             int index = countGroupRangeItem(0, groupPosition + 1);
             notifyItemInserted(index);
             notifyItemRangeChanged(index + 1, getItemCount() - index);
@@ -1010,14 +981,7 @@ public abstract class GroupedRecyclerViewAdapter
         mOnHeaderClickListener = listener;
     }
 
-    /**
-     * 设置组尾点击事件
-     *
-     * @param listener
-     */
-    public void setOnFooterClickListener(OnFooterClickListener listener) {
-        mOnFooterClickListener = listener;
-    }
+
 
     /**
      * 设置子项点击事件
@@ -1034,17 +998,16 @@ public abstract class GroupedRecyclerViewAdapter
 
     public abstract boolean hasHeader(int groupPosition);
 
-    public abstract boolean hasFooter(int groupPosition);
+
 
     public abstract int getHeaderLayout(int viewType);
 
-    public abstract int getFooterLayout(int viewType);
+
 
     public abstract int getChildLayout(int viewType);
 
     public abstract void onBindHeaderViewHolder(BaseViewHolder holder, int groupPosition);
 
-    public abstract void onBindFooterViewHolder(BaseViewHolder holder, int groupPosition);
 
     public abstract void onBindChildViewHolder(BaseViewHolder holder,
                                                int groupPosition, int childPosition);
@@ -1077,9 +1040,7 @@ public abstract class GroupedRecyclerViewAdapter
         void onHeaderClick(GroupedRecyclerViewAdapter adapter, BaseViewHolder holder, int groupPosition);
     }
 
-    public interface OnFooterClickListener {
-        void onFooterClick(GroupedRecyclerViewAdapter adapter, BaseViewHolder holder, int groupPosition);
-    }
+
 
     public interface OnChildClickListener {
         void onChildClick(GroupedRecyclerViewAdapter adapter, BaseViewHolder holder,

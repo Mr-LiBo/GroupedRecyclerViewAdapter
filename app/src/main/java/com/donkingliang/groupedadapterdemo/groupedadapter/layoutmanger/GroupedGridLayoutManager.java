@@ -23,19 +23,9 @@ public class GroupedGridLayoutManager extends GridLayoutManager {
         setSpanSizeLookup();
     }
 
-    public GroupedGridLayoutManager(Context context, int spanCount, int orientation,
-                                    boolean reverseLayout, GroupedRecyclerViewAdapter adapter) {
-        super(context, spanCount, orientation, reverseLayout);
-        this.mAdapter = adapter;
-        setSpanSizeLookup();
-    }
 
-    public GroupedGridLayoutManager(Context context, AttributeSet attrs, int defStyleAttr,
-                                    int defStyleRes, GroupedRecyclerViewAdapter adapter) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        this.mAdapter = adapter;
-        setSpanSizeLookup();
-    }
+
+
 
     private void setSpanSizeLookup() {
         super.setSpanSizeLookup(new SpanSizeLookup() {
